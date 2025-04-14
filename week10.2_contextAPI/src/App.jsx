@@ -18,26 +18,27 @@ const App = () => {
 
 function Parent() {
   const [count, setCount] = useState(0);
+  const name="anurag";
 
   return (
     <> 
-      <Value    name={name} count={count} />
-      <Decrease setCount={setCount} />
-      <Incrase  setCount={setCount}  />
+      <Value    nam={name} count={count} />
+      <Decrease setC={setCount} />
+      <Incrase  setCo={setCount}  />
     </>
   );
 }
 
-function Decrease({  setCount }) {
-  return <button onClick={() => setCount(c => c - 1)} className='bg-green-500 '>Decrease</button>;
+function Decrease({  setC }) {
+  return <button onClick={() => setC(c => c - 1)} className='bg-green-500 '>Decrease</button>;
 }
 
-function Incrase({setCount }) {
-  return <button onClick={() => setCount(c => c+1)} className='bg-green-200'>Increase</button>;
+function Incrase({setCo }) {
+  return <button onClick={() => setCo(c => c+1)} className='bg-green-200'>Increase</button>;
 }
 
-function Value({count }) {
-  return <p>Count: {count}</p>;
+function Value({count,nam }) {
+  return <p>Count: {count}  {nam}</p>;
 }
 
 //another example with lightBulb Example

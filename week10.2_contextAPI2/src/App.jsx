@@ -104,24 +104,32 @@ function ToggleBulbState() {
 
 //second contextAPI
 function NameCompo() {
-  const { number, setNumber } = useContext(NameContext);
-
-  function increseN() {
-    setNumber((preNumber) => preNumber + 10);
-  }
-  function resetN() {
-    setNumber(0);
-  }
+  // const { number, setNumber } = useContext(NameContext);
 
   return (
     <>
-      <div className="bg-red-400">
-        <h1 className="text-2xl font-bold"> the number is {number}</h1>
-        <button onClick={increseN} className="bg-black text-white mr-2">increaseNumber</button>
-        <button onClick={resetN}>reset to zero</button>
+      <div className="bg-red-200 flex flex-col gap-2 justify-center ">
+        <ValueN />
+        <IncreasN />
+        <DecreaseN />
       </div>
     </>
   );
+}
+
+function ValueN() {
+  const { number } = useContext(NameContext);
+  return <div>{number}</div>;
+}
+
+function IncreasN() {
+  const { setNumber } = useContext(NameContext);
+  return <button onClick={() => setNumber((p) => p + 1)}> Increase Number </button>;
+}
+
+function DecreaseN() {
+  const { setNumber } = useContext(NameContext);
+  return <button onClick={() => setNumber((p) => p - 1)}> Decrease Number </button>;
 }
 
 export default App;
