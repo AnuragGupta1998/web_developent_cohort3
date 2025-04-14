@@ -31,6 +31,7 @@ app.get("/multiply",multiplyFn);
 app.get("/params/:a/:b",(req,res)=>{
     const a = req.params.a;
     const b = req.params.b;
+    console.log( typeof(a))  //string type of params
     res.send(`The parameters are ${a} and ${b} `);
 });
 
