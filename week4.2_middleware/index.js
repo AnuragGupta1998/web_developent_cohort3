@@ -15,6 +15,7 @@ app.get("/jsonD",( req,res)=>{
     })
 });
 
+//usigng middleware
 // app.use(checkAge);
 
 app.get("/vote",checkAge,(req,res)=>{
