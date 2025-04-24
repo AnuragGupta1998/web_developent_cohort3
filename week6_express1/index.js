@@ -1,9 +1,12 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json()); //to parse the json body
+app.use(express.urlencoded({ extended: true })); //to parse the urlencoded body
+app.use(cookieParser()); //to parse the cookies
 
 const users = [];
 
@@ -34,8 +37,9 @@ app.post("/signup", (req, res) => {
   users.push({
     username,
     password,
-    token: generateToke(),
   });
+
+  console.log(users)
 
   res.json({
     message: "User signup successfully",
@@ -59,12 +63,63 @@ app.post("/login", (req,res)=>{
     if (user.password !== password) {
         return res.status(400).send("Invalid password");
     }
+    user.token = generateToke();
 
-    
+    console.log("login users", users);
+
+    res.cookie("anuragToken", user.token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+    });
+    res.setHeader("Authorization", user.token);
+
+
     res.json({
         message: "User login successfully",
         token: user.token,
     });
+})
+
+app.get("/profile",(req,res)=>{
+
+  // const userToken = req.headers["authorization"]
+  const userToken = req.cookies.anuragToken;
+  
+  const user = users.find((user) => user.token === userToken);
+  if (!user) {
+    return res.status(401).send("Unauthorized");
+  }
+  
+  res.json({
+    message: "User profile",
+    user: {
+      username: user.username,
+      password: user.password,
+      token: user.token,
+    },
+  });
+})
+
+app.get('/me',(req,res)=>{
+
+  const userToken = req.headers["authorization"];
+
+  const user = users.find((user) => user.token === userToken);
+
+  if (!user) {
+    return res.status(401).send("Unauthorized");
+  }
+  
+  res.json({
+    message: "User me",
+    user: {
+      username: user.username,
+      password: user.password,
+      token: user.token,
+    },
+  });
+
 })
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
