@@ -43,8 +43,9 @@ const TodoSchema = new Schema(
   { timestamps: true }
 );
 
-const UseModel = monggose.model("User", UserSchema);
-const TodoModel = monggose.model("Todo", TodoSchema);
+const UseModel = monggose.model("users", UserSchema);
+
+const TodoModel = monggose.model("todos", TodoSchema);
 
 module.exports = {
   UseModel,

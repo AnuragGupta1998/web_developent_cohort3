@@ -3,12 +3,13 @@ import mongoose from "mongoose";
 import { UserModel, TodoModel } from "./db.js";
 import bcrypt from "bcrypt";
 
-const DB_NAME = "anuragtodos";
+// const DB_NAME = "anuragtodos";
 // const DB_URL = `mongodb://localhost:27017/${DB_NAME}`;
 
 mongoose
   .connect(
-    `mongodb+srv://anurag6967:Anurag123@cluster0.zterbns.mongodb.net/${DB_NAME}`,
+    // `mongodb+srv://anurag6967:Anurag123@cluster0.zterbns.mongodb.net/${DB_NAME}`,
+    `${process.env.MONGODB_URI}${process.env.DB_NAME}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
