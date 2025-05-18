@@ -1,7 +1,7 @@
-import monggose,{Schema} from "mongoose";
-const DB_NAME = "anuragtodos";
+// import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const UserSchema = new monggose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -20,34 +20,25 @@ const UserSchema = new monggose.Schema(
   { timestamps: true }
 );
 
-const TodoSchema = new Schema(
+const TodoSchema = new mongoose.Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
     title: {
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
-    completed: {
+    done: {
       type: Boolean,
-      default: false,
-    },
-    userId: {
-      type: monggose.Schema.Types.ObjectId,
-      ref: "User",
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const UseModel = monggose.model("users", UserSchema);
+export const UserModel = mongoose.model("users", UserSchema);
 
-const TodoModel = monggose.model("todos", TodoSchema);
-
-module.exports = {
-  UseModel,
-  TodoModel,
-};
+export const TodoModel = mongoose.model("todos", TodoSchema);
