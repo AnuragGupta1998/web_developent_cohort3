@@ -128,6 +128,7 @@ app.get("/userProfile", authMid, async (req, res) => {
   });
 });
 
+//logout route
 app.post("/logout", async (req, res) => {
   res.clearCookie("userToken");
   return res.status(200).json({
