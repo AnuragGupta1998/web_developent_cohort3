@@ -135,7 +135,7 @@ app.post("/logout", async (req, res) => {
   });
 });
 
-//add todo of user
+//add todo routes of user
 app.post("/addTodo", authMid, async (req, res) => {
   const userID = req.user;
   console.log("add todos routes");
