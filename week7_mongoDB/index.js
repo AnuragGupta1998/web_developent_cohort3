@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { UserModel, TodoModel } from "./db.js";
 import { authMid } from "./authMiddleware.js";
+import {strictObject, string, z} from "zod";
 dotenv.config();
 
 // const DB_NAME = "anuragtodos";
@@ -34,6 +35,18 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const signUpInputValidation =z.object({
+  name:z.string().min(3).max(20),
+  email:z.string().email(),
+  password: z.string().min(3).max(20)
+})
+
+const signInInputValidation = z.object({
+  email: z.string().email(),
+  password: z.string().min(3).max(20),
+
+})
+
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to the MongoDB Express App</h1>");
 });
@@ -41,6 +54,24 @@ app.get("/", (req, res) => {
 //signup route
 app.post("/signup", async (req, res) => {
   try {
+    // Validate request body
+  //  const result =  signUpInputValidation.safeParse(req.body)
+  //  //if input not pass the zod validation
+  //   if (!result.success) {
+  //       return res.status(400).json({ message: "Invalid input", errors: result.error.errors });
+  //     }
+
+   const {error,success,data} = signUpInputValidation.safeParse(req.body);
+
+   if(!success){
+    return res.status(400).json({ 
+      message: "Invalid signUp input", 
+      errors1: error.errors,
+      data: data, 
+      // error2: error.errors 
+    });
+   }
+
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -80,6 +111,15 @@ app.post("/signup", async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   try {
+    // Validate request body
+    const result = signInInputValidation.safeParse(req.body);
+
+    //if input not pass the zod validation
+    if (!result.success) {
+      return res.status(400).json({ message: "Invalid input", errors: result.error.errors });
+    }
+
+    //destructuring email and password from req.body
     const { email, password } = req.body;
 
     if (!email || !password) {
