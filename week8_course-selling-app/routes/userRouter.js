@@ -12,13 +12,15 @@ userRouter.post("/signup", async (req,res) => {
 
     const {name,email,password}=req.body;
 
-    const signupValidation =z.object({
+    //zod input validation
+    const signUpValidation =z.object({
         name:z.string().min(3).max(20),
         email:z.string().email(),
         password:z.string().min(6).max(20)
     })
 
-    const result = signupValidation.safeParse(req.body);
+    //check if the input is valid or not
+    const result = signUpValidation.safeParse(req.body);
     if(!result.success){
         return res.status(400).json({
             message:"Invalid signup input",
@@ -26,6 +28,7 @@ userRouter.post("/signup", async (req,res) => {
         })
     }
 
+    //check is user already exists or not 
     const findUser = await UserModel.find({email})
     if(!findUser){
         return res.status(400).json({
@@ -33,8 +36,10 @@ userRouter.post("/signup", async (req,res) => {
         })
     }
 
+    //hashed the user password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    //ccreating user into db
     const createUserInDB = await UserModel.create({
         name,
         email,
@@ -64,7 +69,7 @@ userRouter.post("/signin", async (req,res) => {
         })
     }
 
-    const findUser = await UserModel.findOne({email})
+    const findUser = await UserModel.findOne({email});
     if(!findUser){
         return res.status(400).json({
             message:"User not found in DB"
@@ -78,7 +83,7 @@ userRouter.post("/signin", async (req,res) => {
         })
     }
 
-    const token = jwt.sign({id: findUser._id}, process.env.JWT_SECRET);
+    const token = jwt.sign({ID: findUser._id}, process.env.JWT_SECRET);
 
     res.cookie("Usertoken",token,{
         httpOnly:true,
@@ -108,7 +113,7 @@ userRouter.get("/courses", async(req,res)=>{
         })
     }
 
-    const findUser = await UserModel.findById(decoded.id);
+    const findUser = await UserModel.findById(decoded.ID);
     if(!findUser){
         return res.status(401).json({
             message:"Unauthorized"
