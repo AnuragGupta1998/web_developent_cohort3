@@ -16,9 +16,9 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 
 
-import courseRouter from './routes/course';
-import userRouter from './routes/userRouter';
-import adminRouter from './routes/admin';
+import courseRouter from './routes/courseRouter.js';
+import userRouter from './routes/userRouter.js';
+import adminRouter from './routes/adminRouter.js';
 
 
 app.use("/api/v1/user",userRouter);

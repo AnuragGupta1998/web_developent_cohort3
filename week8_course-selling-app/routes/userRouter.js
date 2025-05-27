@@ -1,9 +1,9 @@
 import { Router } from "express";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import {z} from "zod";
 import bcrypt from "bcrypt";
 import UserModel from "../models/user.model.js";
+import PurchaseModel from "../models/purchase.model.js";
 
 const userRouter = Router();
 
@@ -98,7 +98,7 @@ userRouter.post("/signin", async (req,res) => {
     })
 })
 
-userRouter.get("/courses", async(req,res)=>{
+userRouter.get("/purchases", async(req,res)=>{
     const token = req.cookies.Usertoken;
     if(!token){
         return res.status(401).json({
@@ -113,7 +113,7 @@ userRouter.get("/courses", async(req,res)=>{
         })
     }
 
-    const findUser = await UserModel.findById(decoded.ID);
+    const findUser = await PurchaseModel.findById(decoded.ID);
     if(!findUser){
         return res.status(401).json({
             message:"Unauthorized"
