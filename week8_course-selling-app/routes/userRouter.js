@@ -4,6 +4,8 @@ import {z} from "zod";
 import bcrypt from "bcrypt";
 import UserModel from "../models/user.model.js";
 import PurchaseModel from "../models/purchase.model.js";
+import { userAuthMiddleware } from "../middleware/userMiddleware.js";
+import CourseModel from "../models/course.model.js";
 
 const userRouter = Router();
 
@@ -30,7 +32,7 @@ userRouter.post("/signup", async (req,res) => {
 
     //check is user already exists or not 
     const findUser = await UserModel.find({email})
-    if(!findUser){
+    if(findUser){
         return res.status(400).json({
             message:"User already exists"
         })
@@ -98,27 +100,24 @@ userRouter.post("/signin", async (req,res) => {
     })
 })
 
-userRouter.get("/purchases", async(req,res)=>{
-    const token = req.cookies.Usertoken;
-    if(!token){
-        return res.status(401).json({
-            message:"Unauthorized"
-        })
-    }
+userRouter.get("/purchases",userAuthMiddleware,async(req,res)=>{
+    const userId = req.userID;
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if(!decoded){
-        return res.status(401).json({
-            message:"Unauthorized"
-        })
-    }
-
-    const findUser = await PurchaseModel.findById(decoded.ID);
+    const purchasesByUserId = await PurchaseModel.find(userId);
     if(!findUser){
         return res.status(401).json({
             message:"Unauthorized"
         })
     }
+    const purchaseArrayId=[];
+
+    for(let i=0;i<purchasesByUserId.length;i++){
+        purchaseArrayId.push(purchasesByUserId[i].courseId);
+    }
+
+    const purchasesCourses = await CourseModel.find({
+        $in:{_id:purchaseArrayId}
+    });
 
     return res.status(200).json({
         message:"User courses",

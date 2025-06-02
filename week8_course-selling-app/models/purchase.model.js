@@ -7,7 +7,7 @@ const purchaseSchema = new Schema({
         ref:"users",
         required:true
     },
-    couseId:{
+    courseId:{
         type:Schema.Types.ObjectId,
         ref:"courses",
         required:true   
