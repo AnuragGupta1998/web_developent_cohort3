@@ -104,19 +104,15 @@ userRouter.get("/purchases",userAuthMiddleware,async(req,res)=>{
     const userId = req.userID;
 
     const purchasesByUserId = await PurchaseModel.find(userId);
-    if(!findUser){
-        return res.status(401).json({
-            message:"Unauthorized"
-        })
-    }
-    const purchaseArrayId=[];
+    
+    // const purchaseArrayId=[];
 
-    for(let i=0;i<purchasesByUserId.length;i++){
-        purchaseArrayId.push(purchasesByUserId[i].courseId);
-    }
+    // for(let i=0;i<purchasesByUserId.length;i++){
+    //     purchaseArrayId.push(purchasesByUserId[i].courseId);
+    // }
 
     const purchasesCourses = await CourseModel.find({
-        $in:{_id:purchaseArrayId}
+        $in:{_id:purchasesByUserId.map((purchase)=> purchase.courseId)}
     });
 
     return res.status(200).json({
