@@ -2,6 +2,9 @@ import { Router } from "express";
 import AdminModel from "../models/admin.model.js";
 import CourseModel from "../models/course.model.js";
 import { adminAuthMiddleware } from "../middleware/adminMiddleware.js";
+import {z} from "zod";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const adminRouter = Router();
 
@@ -12,7 +15,7 @@ adminRouter.post("/signup", async (req, res) => {
   const signUpValidation = z.object({
     name: z.string().min(3).max(20),
     email: z.string().email(),
-    password: z.string().min(6).max(20),
+    password: z.string().min(3).max(20),
   });
 
   //check if the input is valid or not
@@ -53,7 +56,7 @@ adminRouter.post("/signin", async (req, res) => {
 
   const signinValidation = z.object({
     email: z.string().email(),
-    password: z.string().min(6).max(20),
+    password: z.string().min(3).max(20),
   });
 
   const result = signinValidation.safeParse(req.body);
@@ -65,7 +68,7 @@ adminRouter.post("/signin", async (req, res) => {
   }
 
   const findAdmin = await AdminModel.findOne({ email });
-  if (!findUser) {
+  if (!findAdmin) {
     return res.status(400).json({
       message: "User not found in DB",
     });
@@ -115,7 +118,7 @@ adminRouter.post("/course", adminAuthMiddleware, async (req, res) => {
         title,
         description,
         price,
-        createdBy: adminId
+        creatorId: adminId
     });
 
     return res.status(201).json({

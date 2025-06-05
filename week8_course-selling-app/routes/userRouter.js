@@ -32,7 +32,8 @@ userRouter.post("/signup", async (req,res) => {
 
     //check is user already exists or not 
     const findUser = await UserModel.find({email})
-    if(findUser){
+    console.log("findUser",findUser);
+    if(!findUser){
         return res.status(400).json({
             message:"User already exists"
         })
@@ -103,7 +104,7 @@ userRouter.post("/signin", async (req,res) => {
 userRouter.get("/purchases",userAuthMiddleware,async(req,res)=>{
     const userId = req.userID;
 
-    const purchasesByUserId = await PurchaseModel.find(userId);
+    const purchasesByUserId = await PurchaseModel.find({userId});
     
     // const purchaseArrayId=[];
 
@@ -112,12 +113,13 @@ userRouter.get("/purchases",userAuthMiddleware,async(req,res)=>{
     // }
 
     const purchasesCourses = await CourseModel.find({
-        $in:{_id:purchasesByUserId.map((purchase)=> purchase.courseId)}
+        _id:{$in :purchasesByUserId.map((purchase)=> purchase.courseId)}
     });
 
     return res.status(200).json({
         message:"User courses",
-        courses:findUser.courses
+        purchasesByUserId,
+        purchasesCourses
     })
 });
 
