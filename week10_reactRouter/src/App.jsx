@@ -33,10 +33,14 @@ function App() {
 export function Landing() {
   const navigate = useNavigate(); //useNavigate hook use to navigate to routes
   useEffect(() => {
-    setTimeout(() => {
+   const timer= setTimeout(() => {
       console.log("hello after 5 second");
       navigate("/home");
     }, 5000);
+
+    return ()=>{
+      clearInterval(timer); //cleanup function to clear the timer
+    }
   }, []);
   return (
     <div className="bg-red-400 h-52 w-52 border-b-4 border-b-black text-start flex justify-center items-center">
