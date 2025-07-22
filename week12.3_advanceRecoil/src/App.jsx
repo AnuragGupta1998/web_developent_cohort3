@@ -4,12 +4,21 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import {  useRecoilState, useRecoilValue } from "recoil";
 import { networkAtom, notificationAtom ,messagingAtom,jobsAtom,myTotalNotificationSelector} from "./atoms";
+import Todo from "./Todo";
+import { todosAtomFamily } from "./atomFamily";
 
 function App() {
   
   return (
+  <>
     
     <MainApp />
+
+    <Todo id={1} />
+    <Todo id={2} />
+    <Todo id={3} />
+    <Todo id={4} />
+  </>
     
   );
 }
