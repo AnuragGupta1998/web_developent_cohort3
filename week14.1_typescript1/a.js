@@ -58,3 +58,13 @@ function runAfterOneSecond(fn) {
     setTimeout(fn, 1000);
 }
 runAfterOneSecond(demo);
+function greet2(nam) {
+    console.log("Hello " + nam);
+}
+function delayedGreet(fn) {
+    let nam = "Anurag";
+    setTimeout(() => {
+        fn(nam);
+    }, 2000);
+}
+delayedGreet(greet2);

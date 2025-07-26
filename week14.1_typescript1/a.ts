@@ -42,12 +42,15 @@ function displayName(n:string):string{
     return n;
 }
 
-function addShow(a:string,fn:(arg:string)=>string):void{
+function addShow( a:string , fn:(arg:string)=>string ):void{
     console.log("the value of a is "+a);
     const result=fn(a);
     console.log("the result is "+result);
 }
 addShow("Ashutosh",displayName);
+
+
+
 
 //implicitely typed function........
 function isLegal(age:number){
@@ -56,9 +59,9 @@ function isLegal(age:number){
     }
     return false;
 }
-
 isLegal(14) ? console.log("You are legal") : console.log("You are not legal");
 console.log(isLegal(25));
+
 
 
 //explicitely typed function........
@@ -68,13 +71,12 @@ function isLegal2(age:number):boolean{
     }
     return false;
 }
-
 isLegal2(14) ? console.log("You are legal") : console.log("You are not legal");
 console.log(isLegal2(45));
 
 
-//function that takes a function as an argument and run after one second
 
+//function that takes a function as an argument and run after one second................
 function demo(){
     console.log("This is a demo function");
 }
@@ -83,4 +85,19 @@ function runAfterOneSecond(fn:()=>void) {
     setTimeout(fn,1000);
 }
 runAfterOneSecond(demo);
+
+
+
+//function that takes a function as an argument and run after two seconds...................
+function greet2(nam:string){
+    console.log("Hello "+nam);  
+}
+
+function delayedGreet(fn:(arg:string)=>void){
+    let nam:string = "Anurag";
+    setTimeout(() => {
+        fn(nam);
+    }, 2000);
+}
+delayedGreet(greet2);
 
