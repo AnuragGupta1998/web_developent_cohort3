@@ -7,8 +7,10 @@ console.log(x)
 function show(arg:string):void{
     console.log("hello "+ arg);
 }
-
 show("anurag")
+
+
+
 
 // Function with return type
 // This function takes a string argument and returns a string........
@@ -18,14 +20,26 @@ function nameReturn (nam:string):string{
 
 const result:string = nameReturn("Anurag");
 console.log(result);
+console.log(nameReturn("Ashutosh"));
+
+
+
+
+
+//function return number........
+function add(a:number,b:number):number{
+    return a+b;
+}   
+const sum:number = add(10,20);
+console.log("The sum is "+sum);
+
+
 
 
 //function passing to another function........
 function displayName(n:string):string{
     console.log("Name is "+n);
-
     return n;
-
 }
 
 function addShow(a:string,fn:(arg:string)=>string):void{
@@ -33,5 +47,27 @@ function addShow(a:string,fn:(arg:string)=>string):void{
     const result=fn(a);
     console.log("the result is "+result);
 }
-
 addShow("Ashutosh",displayName);
+
+//implicitely typed function........
+function isLegal(age:number){
+    if(age >= 18){
+        return true;
+    }
+    return false;
+}
+
+isLegal(14) ? console.log("You are legal") : console.log("You are not legal");
+console.log(isLegal(25));
+
+
+//explicitely typed function........
+function isLegal2(age:number):boolean{
+    if(age >= 18){
+        return true;
+    }
+    return false;
+}
+
+isLegal2(14) ? console.log("You are legal") : console.log("You are not legal");
+console.log(isLegal2(45));
