@@ -1,15 +1,17 @@
+//simple typescript code to show how to use types in typescript........
 let x:number = 100;
 
 console.log(x)
 
-
-
+// Function with no return type.......
 function show(arg:string):void{
     console.log("hello "+ arg);
 }
 
 show("anurag")
 
+// Function with return type
+// This function takes a string argument and returns a string........
 function nameReturn (nam:string):string{
     return "hello "+nam +" how are you?";
 }
@@ -17,6 +19,8 @@ function nameReturn (nam:string):string{
 const result:string = nameReturn("Anurag");
 console.log(result);
 
+
+//function passing to another function........
 function displayName(n:string):string{
     console.log("Name is "+n);
 
