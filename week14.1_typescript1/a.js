@@ -50,3 +50,11 @@ function isLegal2(age) {
 }
 isLegal2(14) ? console.log("You are legal") : console.log("You are not legal");
 console.log(isLegal2(45));
+//function that takes a function as an argument and run after one second
+function demo() {
+    console.log("This is a demo function");
+}
+function runAfterOneSecond(fn) {
+    setTimeout(fn, 1000);
+}
+runAfterOneSecond(demo);
