@@ -93,11 +93,16 @@ function greet2(nam:string){
     console.log("Hello "+nam);  
 }
 
-function delayedGreet(fn:(arg:string)=>void){
-    let nam:string = "Anurag";
+function delayedGreet(v:string,fn:(arg:string)=>void){
     setTimeout(() => {
-        fn(nam);
+        fn(v);
     }, 2000);
 }
-delayedGreet(greet2);
+delayedGreet("Dinesh",greet2);
+
+//Arrow function of sum of two number
+const sumArrow = (a:number, b:number):number => {
+    return a + b;
+}
+console.log("The sum using arrow function is " + sumArrow(5, 15));
 
