@@ -29,6 +29,12 @@ const rst:User = userDetail({ name: "Anurag", age: 25, email: "anurag@gmail.com"
 console.log(rst)
 console.log(userDetail({ name: "Anurag", age: 25, email: ""}));
 
+const data:User ={name:"ONE", age: 1, email:""};
+
+console.log(userDetail(data));
+
+
+
 
 //user1 //interface type as function parameter with return type void
 const user1:{a:number,b:number,c:number}={
