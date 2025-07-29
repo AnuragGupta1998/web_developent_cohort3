@@ -31,3 +31,7 @@ function showUserDetails(user:User2):User2 {
 }
 
 const r1 = showUserDetails(anurag);
+
+console.log(anurag.display()); // Output: Name: Anurag, Age: 25
+console.log(anurag.showDetails()); // Output: User Details - Name: Anurag, Age: 25
+console.log(`Discount on 1000: ${anurag.discount(1000)}`); // Output: Discount on 1000: 100
