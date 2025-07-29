@@ -1,6 +1,7 @@
 interface User1{
     name:string;
     age:number;
+    // optional property
     address?:{
         street:string;
         city:string;    
