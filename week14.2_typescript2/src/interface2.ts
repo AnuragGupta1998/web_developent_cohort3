@@ -1,7 +1,7 @@
 interface User1{
     name:string;
     age:number;
-    address:{
+    address?:{
         street:string;
         city:string;    
     }
