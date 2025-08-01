@@ -21,16 +21,17 @@ type Admin = {
     subject:string; 
 }
 
-type UserOrAdmin = Admin | User;
+type UserOrAdmin = Admin & User;
 
 const user4: UserOrAdmin = {
     name: "Alice",
     age: 30,
-    // subject: "Math" // This line will cause an error because 'subject' is not part of User4 
+    subject: "Math" // This line will cause an error because 'subject' is not part of User4 
 };  
 
 function printUserInfo(user: UserOrAdmin) {
-    console.log(`Name: ${user.name}, Age: ${user.age} Subject is `);
+    // console.log(`Name: ${user.name}, Age: ${user.age} Subject is `);
+    console.log(`Name: ${user.name}, Age: ${user.age} Subject is ${user.subject}`);
     if ('subject' in user) {
         console.log(`Subject: ${user.subject}`);
     }

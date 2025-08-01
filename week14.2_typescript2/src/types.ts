@@ -7,6 +7,7 @@ function getId(studentId:id ): string {
 
 const studentId1: id = 101;
 console.log(getId(studentId1)); // Output: ID: 101
+console.log(getId("Anurag")); // Output: ID: Anurag
 
 
 // types and interface very similar to interface
