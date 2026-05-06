@@ -26,3 +26,9 @@ config detenv file with package.json file
 - app.use(express.urlencoded({ limit :" 100kb", extended: true}));// to parse URL-encoded or params request 
 - app.use(express.static("public"));      // to serve static files from the "public" directory
 - app.use(cookieParser()); //access cookies from browser in backend
+
+# installation of requires library
+- npm i mongoose-aggregate-paginate-v2
+- npm i cors cookie-parser
+- npm i express mongoose dotenv
+- npm i -D nodemon prettier
