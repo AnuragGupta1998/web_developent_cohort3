@@ -16,7 +16,14 @@ app.use(express.urlencoded({ limit :" 100kb", extended: true})); // to parse URL
 app.use(express.static("public"));                               // to serve static files from the "public" directory
 app.use(cookieParser());                                         // to parse cookies from incoming requests and populate the req.cookies object with key-value pairs representing the cookies sent by the client
 
+// Routes
+import userRouter from "./routes/user.routes.js";
 
+
+
+
+//user routes
+app.use("/api/v1/users",userRouter);
 
 
 
