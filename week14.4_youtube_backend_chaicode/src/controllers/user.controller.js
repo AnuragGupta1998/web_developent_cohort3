@@ -7,7 +7,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password, fullName } = req.body;
-  console.log(username, email, password, fullname);
+  console.log(username, email, password, fullName);
 
   //Zod validation for user registration input schema
   // const registerValidation = z.object({
@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, "User with the same email already exists");
   }
   
-  console.log("Files received in controller:", req.files?.avatar?.[0]?.path);
+  console.log("Files received in controller:", req.files);
 
   //acceptinng files throght multer middleware and checking if avatar is uploaded or not
   const avatarLocalPath = req.files?.avatar?.[0]?.path;
@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar is required");
   }
 
-  const avatar = await uploadOnCloudinary(avatarLoaclPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath);
 
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 

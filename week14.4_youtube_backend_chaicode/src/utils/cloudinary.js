@@ -20,6 +20,8 @@ const uploadOnCloudinary = async (filePath) => {
 
         console.log("cloudinary response",response.url);
 
+        fs.unlinkSync(filePath); //remove the temporary file from local storage "./public" folder
+
         return response; 
     }
     catch(err){

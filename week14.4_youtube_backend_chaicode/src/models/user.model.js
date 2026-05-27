@@ -53,11 +53,11 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   //if password not modified then no need to hash it again and again when we update other details of user document like username, email etc. so we will check if password is modified or not
   if (!this.isModified("password")) {
-    return next();
+    return next;
   }
   //if password modified then hash it
   this.password = await bcrypt.hash(this.password, 10);
-  next();
+  next;
 });
 
 //injecting method to userSchema
