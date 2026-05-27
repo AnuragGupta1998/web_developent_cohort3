@@ -19,7 +19,7 @@ const uploadOnCloudinary = async (filePath) => {
         );
 
         console.log("cloudinary response",response.url);
-
+        //after uploading the file on cloudinary we will get the response which contains the url of the uploaded file on cloudinary and other details of the uploaded file and then we will remove the temporary file from local storage "./public" folder using fs.unlinkSync() method which takes the file path as an argument and removes the file from local storage
         fs.unlinkSync(filePath); //remove the temporary file from local storage "./public" folder
 
         return response; 
