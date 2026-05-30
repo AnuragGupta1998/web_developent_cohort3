@@ -70,6 +70,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 //injecting methods in userSchema
 //during signing we generate access token and refresh token for the user and we will store the refresh token in database for later use when user will request for new access token using refresh token
 //it returns string which is the access token
+//short lived token
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
@@ -88,6 +89,7 @@ userSchema.methods.generateAccessToken = function () {
 
 //injecting methods in userSchema
 //it returns string which is the access token
+//long lived token
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
